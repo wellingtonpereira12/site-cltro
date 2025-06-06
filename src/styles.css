@@ -1,0 +1,119 @@
+/* styles.css */
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Barra fixa no topo */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #2d3748; /* cinza escuro */
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+  z-index: 1000;
+}
+
+/* Links da nav */
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #63b3ed; /* azul claro */
+}
+
+/* Espaço para o conteúdo abaixo da barra fixa */
+.content {
+  padding-top: 4.5rem; /* altura da nav + um pouco de folga */
+}
+
+/* Estilos das páginas */
+.page {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+  color: #2d3748;
+}
+
+h1, h2 {
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+button, a.button {
+  background-color: #3182ce; /* azul */
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem; /* espaço entre texto e botão */
+}
+
+button:hover, a.button:hover {
+  background-color: #2c5282; /* azul escuro */
+}
+
+
+input {
+  padding: 0.5rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+/* Estilo para o select */
+select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-top: 0.4rem;
+  margin-bottom: 1.2rem;
+  border: 2px solid #cbd5e0; /* cinza claro */
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f7fafc; /* fundo clarinho */
+  appearance: none; /* Remove estilo padrão */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%227%22%20viewBox%3D%220%200%2010%207%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%200l5%207%205-7z%22%20fill%3D%22%233182ce%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 10px 7px;
+}
+
+select:focus {
+  border-color: #3182ce; /* azul */
+  box-shadow: 0 0 8px rgba(49, 130, 206, 0.5);
+  background-color: white;
+}
