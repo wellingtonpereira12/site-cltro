@@ -17,11 +17,11 @@ export default function CreateAccount() {
     }
 
     try {
-      const response = await fetch("http://31.97.28.102:4000/api/create-account", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userid, user_pass: userPass, sex, email }),
-      });
+	const response = await fetch("/api/create-account", {
+ 	 method: 'POST',
+  	headers: { 'Content-Type': 'application/json' },
+  	body: JSON.stringify({ userid, user_pass: userPass, sex, email }),
+	});
 
       const data = await response.json();
 

@@ -117,3 +117,450 @@ select:focus {
   box-shadow: 0 0 8px rgba(49, 130, 206, 0.5);
   background-color: white;
 }
+
+
+
+/* home */
+
+/* Importação de Fonte (exemplo, adicione no topo do seu CSS ou no HTML) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap');
+
+/* Estilos Gerais do Corpo e Container */
+body {
+  font-family: 'Poppins', sans-serif; /* Fonte principal */
+  margin: 0;
+  background-color: #f5f7fa; /* Fundo cinza suave */
+  color: #333;
+  line-height: 1.6;
+}
+
+.page-container {
+  max-width: 1400px; /* Largura um pouco maior para mais impacto */
+  margin: 0 auto;
+  overflow-x: hidden; /* Evita scroll horizontal indesejado */
+}
+
+/* Seção Hero (A Estrela!) */
+.hero-section {
+  background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%); /* Púrpura profundo e impactante */
+  color: white;
+  text-align: center;
+  padding: 120px 20px 100px; /* Mais padding para destaque */
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Sombra mais forte para profundidade */
+  position: relative; /* Para possíveis efeitos visuais */
+  overflow: hidden; /* Para garantir que elementos internos não vazem */
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2; /* Garante que o conteúdo fique acima de qualquer background overlay */
+}
+
+.main-title {
+  font-family: 'Montserrat', sans-serif; /* Fonte mais bold para o título */
+  font-size: 4.5em; /* Gigante e chamativo */
+  margin-bottom: 10px;
+  letter-spacing: -2px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.main-title .highlight {
+  color: #ffcc00; /* Dourado vibrante */
+}
+
+.subtitle {
+  font-size: 1.6em;
+  margin-bottom: 40px;
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+.cta-button {
+  background-color: #ffcc00; /* Dourado */
+  color: #4a148c; /* Púrpura escuro */
+  padding: 20px 50px;
+  font-size: 1.5em;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cta-button:hover {
+  background-color: #ffdb4d; /* Dourado mais claro no hover */
+  transform: translateY(-5px); /* Efeito de "levitação" */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+}
+
+.cta-button.secondary { /* Estilo para o CTA final */
+  background-color: #4CAF50; /* Verde vibrante */
+  color: white;
+  margin-top: 20px;
+}
+
+.cta-button.secondary:hover {
+  background-color: #66bb6a;
+  transform: translateY(-5px);
+}
+
+.small-text {
+  font-size: 0.9em;
+  margin-top: 20px;
+  opacity: 0.8;
+}
+
+/* Seção de Destaques/Benefícios */
+.features-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 60px 20px;
+  gap: 30px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  margin: -70px 40px 60px; /* Sobrepõe o hero e tem margem */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item {
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  text-align: center;
+  padding: 35px;
+  border-radius: 20px;
+  background-color: #f0f4f7; /* Fundo mais claro */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-8px); /* Mais lift no hover */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature-item .icon {
+  font-size: 3.5em; /* Ícones maiores */
+  color: #7b1fa2; /* Cor primária */
+  margin-bottom: 20px;
+}
+
+.feature-item h2 {
+  font-size: 1.9em;
+  color: #4a148c; /* Cor secundária */
+  margin-bottom: 15px;
+}
+
+.feature-item p {
+  font-size: 1.1em;
+  line-height: 1.7;
+}
+
+/* Seção do Banner Rotativo */
+.banner-rotativo-section {
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Seção Sobre o CLTRO */
+.about-cltro {
+  padding: 60px 40px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 25px;
+  margin: 0 40px 60px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.about-cltro h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3em;
+  color: #7b1fa2;
+  margin-bottom: 30px;
+}
+
+.about-cltro p {
+  font-size: 1.25em;
+  line-height: 1.8;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #555;
+}
+
+/* Seção de Chamada para Ação Final */
+.final-cta-section {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #e3f2fd; /* Azul claro suave */
+  border-radius: 25px;
+  margin: 0 40px 60px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.final-cta-section h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.8em;
+  color: #4a148c;
+  margin-bottom: 20px;
+}
+
+.final-cta-section p {
+  font-size: 1.3em;
+  margin-bottom: 35px;
+  color: #666;
+}
+
+/* Rodapé do Site */
+.site-footer {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #333;
+  color: #eee;
+  font-size: 0.95em;
+  margin-top: 80px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 1024px) {
+  .main-title {
+    font-size: 3.5em;
+  }
+  .subtitle {
+    font-size: 1.4em;
+  }
+  .features-section,
+  .about-cltro,
+  .final-cta-section {
+    margin: -50px 20px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 80px 15px 60px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+  }
+  .main-title {
+    font-size: 2.8em;
+  }
+  .subtitle {
+    font-size: 1.2em;
+  }
+  .cta-button {
+    padding: 15px 35px;
+    font-size: 1.3em;
+  }
+  .features-section {
+    flex-direction: column;
+    margin: -30px 15px 30px;
+  }
+  .feature-item {
+    min-width: unset;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  .about-cltro,
+  .final-cta-section {
+    padding: 40px 20px;
+    margin: 0 15px 40px;
+  }
+  .about-cltro h2,
+  .final-cta-section h3 {
+    font-size: 2.2em;
+  }
+  .about-cltro p,
+  .final-cta-section p {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 60px 10px 40px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+  .main-title {
+    font-size: 2.2em;
+    letter-spacing: -1px;
+  }
+  .subtitle {
+    font-size: 1em;
+  }
+  .cta-button {
+    width: 90%;
+    font-size: 1.1em;
+  }
+  .features-section,
+  .about-cltro,
+  .final-cta-section {
+    margin: -20px 10px 20px;
+  }
+  .feature-item {
+    padding: 25px;
+  }
+  .feature-item .icon {
+    font-size: 3em;
+  }
+  .feature-item h2 {
+    font-size: 1.6em;
+  }
+  .about-cltro h2,
+  .final-cta-section h3 {
+    font-size: 1.8em;
+  }
+  .about-cltro p,
+  .final-cta-section p {
+    font-size: 1em;
+  }
+}
+
+/* banner rotativo */
+
+.banner-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1100px; /* Adapte ao tamanho ideal para seus banners */
+  margin: 40px auto; /* Espaçamento da home */
+  border-radius: 15px;
+  overflow: hidden; /* Garante que o conteúdo não vaze */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background-color: #fff; /* Fundo para quando a imagem não está carregada */
+}
+
+.banner-slide-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 50.33%; /* Proporção 3:1 (altura é 33.33% da largura). Ajuste conforme a proporção das suas imagens */
+  overflow: hidden;
+}
+
+.banner-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+  transition: opacity 0.5s ease-in-out; /* Transição de fade */
+}
+
+.banner-img.fade-in {
+  opacity: 1;
+}
+
+.banner-img.fade-out {
+  opacity: 0;
+}
+
+/* Dots de Navegação */
+.banner-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10; /* Acima da imagem */
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.dot.active {
+  background-color: #ffcc00; /* Dourado do seu tema */
+  transform: scale(1.2); /* Aumenta um pouco o dot ativo */
+  border: 1px solid #ffcc00;
+}
+
+.dot:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Setas de Navegação */
+.banner-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+  color: white;
+  border: none;
+  padding: 15px 10px;
+  cursor: pointer;
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.banner-nav-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.banner-nav-arrow.prev {
+  left: 10px;
+}
+
+.banner-nav-arrow.next {
+  right: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .banner-carousel {
+    max-width: 100%;
+    margin: 20px auto;
+    border-radius: 10px;
+  }
+  .banner-nav-arrow {
+    font-size: 1.5em;
+    padding: 10px 5px;
+  }
+  .banner-dots {
+    bottom: 10px;
+    gap: 8px;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-carousel {
+    border-radius: 5px;
+  }
+  .banner-nav-arrow {
+    font-size: 1.2em;
+    padding: 8px 3px;
+  }
+  .banner-dots {
+    bottom: 5px;
+    gap: 6px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+}

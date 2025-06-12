@@ -3,7 +3,6 @@ import Home from './pages/Home';
 import CreateAccount from './pages/CreateAccount';
 import Download from './pages/Download';
 
-
 export default function App() {
   return (
     <Router>

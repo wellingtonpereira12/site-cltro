@@ -1,0 +1,8 @@
+nohup: ignoring input
+ INFO  Accepting connections at http://0.0.0.0:3000
+ HTTP  6/6/2025 2:10:24 AM 179.51.180.144 GET /
+ HTTP  6/6/2025 2:10:24 AM 179.51.180.144 Returned 200 in 22 ms
+ HTTP  6/6/2025 2:10:24 AM 179.51.180.144 GET /assets/index-ClbPXND9.js
+ HTTP  6/6/2025 2:10:24 AM 179.51.180.144 Returned 304 in 4 ms
+ HTTP  6/6/2025 2:10:24 AM 179.51.180.144 GET /assets/index-VSKvZ_RL.css
+ HTTP  6/6/2025 2:10:24 AM 179.51.180.144 Returned 304 in 3 ms
