@@ -6,10 +6,13 @@ import Download from './pages/Download';
 export default function App() {
   return (
     <Router>
-      <nav>
+      <nav className="nav-menu">
         <Link to="/">Home</Link>
         <Link to="/criar-conta">Crie sua conta</Link>
         <Link to="/download">Download</Link>
+        <a href="https://discord.gg/6qX5VEKakP" target="_blank" rel="noopener noreferrer">
+          Discord
+        </a>
       </nav>
       <div className="content">
         <Routes>
