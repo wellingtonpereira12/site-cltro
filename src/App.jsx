@@ -13,6 +13,9 @@ export default function App() {
         <a href="https://discord.gg/6qX5VEKakP" target="_blank" rel="noopener noreferrer">
           Discord
         </a>
+        <a href="https://cltro.gitbook.io/cltro/" target="_blank" rel="noopener noreferrer">
+          Wiki
+        </a>
       </nav>
       <div className="content">
         <Routes>
