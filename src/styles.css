@@ -1,11 +1,13 @@
 /* styles.css */
 
 /* Reset básico */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif; /* Defina a fonte padrão aqui */
 }
 
 /* Barra fixa no topo */
@@ -117,13 +119,6 @@ select:focus {
   box-shadow: 0 0 8px rgba(49, 130, 206, 0.5);
   background-color: white;
 }
-
-
-
-/* home */
-
-/* Importação de Fonte (exemplo, adicione no topo do seu CSS ou no HTML) */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap');
 
 /* Estilos Gerais do Corpo e Container */
 body {
@@ -563,4 +558,102 @@ body {
     width: 8px;
     height: 8px;
   }
+}
+
+/* Estilos para formulários e mensagens */
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.error-message {
+  background-color: #fed7d7;
+  color: #e53e3e;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.user-info {
+  background-color: #f7fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.user-info p {
+  margin-bottom: 0.8rem;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+}
+
+.logout-button:hover {
+  color: #63b3ed;
+}
+
+/* Estilo para a Home quando logado */
+.welcome-message {
+  background: linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Tela de carregamento */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #7b1fa2;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Garantir que o conteúdo principal tenha altura mínima */
+.content {
+  min-height: calc(100vh - 4.5rem);
+  padding-top: 4.5rem;
 }

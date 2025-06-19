@@ -1,87 +1,87 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function CreateAccount() {
-  const [userid, setUserid] = useState('');
-  const [userPass, setUserPass] = useState('');
-  const [sex, setSex] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState(null);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(null);
-
-    if (!userid || !userPass || !sex || !email) {
-      setMessage({ type: 'error', text: 'Por favor, preencha todos os campos.' });
+    
+    if (password !== confirmPassword) {
+      setError('As senhas não coincidem');
       return;
     }
 
     try {
-	const response = await fetch("/api/create-account", {
- 	 method: 'POST',
-  	headers: { 'Content-Type': 'application/json' },
-  	body: JSON.stringify({ userid, user_pass: userPass, sex, email }),
-	});
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setMessage({ type: 'error', text: data.error || 'Erro ao criar conta.' });
-      } else {
-        setMessage({ type: 'success', text: data.message });
-        setUserid('');
-        setUserPass('');
-        setSex('');
-        setEmail('');
-      }
-    } catch (error) {
-      setMessage({ type: 'error', text: 'Erro ao conectar com o servidor.' });
+      await register({ name, email, password });
+      navigate('/perfil');
+    } catch (err) {
+      setError(err.message || 'Erro ao criar conta. Tente novamente.');
+      console.error('Erro no cadastro:', err);
     }
   };
 
   return (
     <div className="page">
-      <h2>Crie sua conta</h2>
+      <h2>Crie sua Conta</h2>
+      {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
-
-        <input
-          type="text"
-          value={userid}
-          onChange={(e) => setUserid(e.target.value)}
-          placeholder="Login"
-          autoComplete="username"
-        />
-
-        <input
-          type="password"
-          value={userPass}
-          onChange={(e) => setUserPass(e.target.value)}
-          placeholder="Senha"
-          autoComplete="new-password"
-        />
-
-        <select value={sex} onChange={(e) => setSex(e.target.value)}>
-          <option value="" disabled>Sexo</option>
-          <option value="M">Masculino</option>
-          <option value="F">Feminino</option>
-        </select>
-
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          autoComplete="email"
-        />
-
-        <button type="submit">Criar Conta</button>
+        <div className="form-group">
+          <label htmlFor="name">Login:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">E-mail:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete="email"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Senha:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            autoComplete="new-password"
+          />
+          <small>Mínimo 8 caracteres, com letras e números</small>
+        </div>
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirme a Senha:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            autoComplete="new-password"
+          />
+        </div>
+        <button type="submit" className="button">Criar Conta</button>
       </form>
-
-      {message && (
-        <p style={{ color: message.type === 'error' ? 'red' : 'green', marginTop: '1rem' }}>
-          {message.text}
-        </p>
-      )}
+      <p>
+        Já tem uma conta? <a href="/login">Faça login aqui</a>.
+      </p>
     </div>
   );
 }

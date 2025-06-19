@@ -1,19 +1,26 @@
 import BannerRotativo from './BannerRotativo'; // Mantenha seu banner rotativo aqui
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../context/AuthContext';
 
 export default function Home() {
-  const navigate = useNavigate();
+const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleClick = () => {
-    navigate('/criar-conta');
+    navigate(user ? '/perfil' : '/criar-conta');
   };
 
   return (
     <div className="page-container">
-      {/* Seção Hero: O Primeiro Impacto */}
       <header className="hero-section">
         <div className="hero-content">
+          {user && (
+            <div className="welcome-message">
+              <h2>Bem-vindo de volta, {user.name}!</h2>
+              <p>Continue sua aventura no CLTRO!</p>
+            </div>
+          )}
+          
           <h1 className="main-title">
             Bem-vindo ao <span className="highlight">CLTRO!</span>
           </h1>
