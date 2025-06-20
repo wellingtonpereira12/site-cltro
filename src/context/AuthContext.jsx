@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch(`https://www.cltro.com/api/auth/me`, {
+      const response = await fetch(`http://localhost:4000/api/auth/me`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (login, password) => {
     console.log(login, password)
-    const response = await fetch(`https://www.cltro.com/api/auth/login`, {
+    const response = await fetch(`http://localhost:4000/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -61,12 +61,38 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (userData) => {
-    const response = await fetch(`https://www.cltro.com/api/auth/register`, {
+    const response = await fetch(`http://localhost:4000/api/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userData)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error);
+    }
+
+    const data = await response.json();
+    localStorage.setItem('token', data.token);
+    setUser(data.user);
+    return data;
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+  };
+
+
+  const Votar = async (botao) => {
+    const response = await fetch(`http://localhost:4000/api/auth/votar`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(botao)
     });
 
     if (!response.ok) {
