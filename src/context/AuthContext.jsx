@@ -7,7 +7,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Verificar token ao carregar
     const token = localStorage.getItem('token');
     if (token) {
       fetchUserData(token);
@@ -18,10 +17,8 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/auth/me`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+      const response = await fetch(`https://www.cltro.com/api/auth/me`, {
+        headers: { 'Authorization': `Bearer ${token}` }
       });
       
       if (response.ok) {
@@ -31,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         logout();
       }
     } catch (error) {
-      console.error('Erro ao buscar dados do usuário:', error);
+      console.error('Erro ao buscar usuário:', error);
       logout();
     } finally {
       setLoading(false);
@@ -40,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (login, password) => {
     console.log(login, password)
-    const response = await fetch(`http://localhost:4000/api/auth/login`, {
+    const response = await fetch(`https://www.cltro.com/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -61,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (userData) => {
-    const response = await fetch(`http://localhost:4000/api/auth/register`, {
+    const response = await fetch(`https://www.cltro.com/api/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -86,29 +83,40 @@ export const AuthProvider = ({ children }) => {
   };
 
 
-  const Votar = async (botao) => {
-    const response = await fetch(`http://localhost:4000/api/auth/votar`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(botao)
-    });
+const computaVoto = async (btnvoto) => {
+    try {
+      const response = await fetch('https://www.cltro.com/api/auth/computaVoto', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ btnvoto })
+      });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error);
+      // Verifica se a resposta tem conteúdo antes de parsear JSON
+      const responseText = await response.text();
+      const data = responseText ? JSON.parse(responseText) : {};
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao computar voto');
+      }
+
+      // Atualiza token se existir
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+      
+      // Atualiza dados do usuário
+      if (data.user) {
+        setUser(data.user);
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Erro ao computar voto:', error);
+      throw error;
     }
-
-    const data = await response.json();
-    localStorage.setItem('token', data.token);
-    setUser(data.user);
-    return data;
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
   };
 
   const value = {
@@ -116,7 +124,8 @@ export const AuthProvider = ({ children }) => {
     loading,
     login,
     register,
-    logout
+    logout,
+    computaVoto
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

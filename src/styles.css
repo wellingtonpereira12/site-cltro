@@ -652,8 +652,24 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Garantir que o conteúdo principal tenha altura mínima */
-.content {
-  min-height: calc(100vh - 4.5rem);
-  padding-top: 4.5rem;
+
+.timer {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #2ecc71;
+}
+
+.success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
