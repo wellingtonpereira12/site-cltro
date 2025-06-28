@@ -673,3 +673,208 @@ button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
 }
+
+/*profile
+
+/* Container principal do perfil */
+.profile-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Navegação das abas */
+.profile-tab-navigation {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 1.5rem;
+}
+
+.profile-tab-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #555;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  margin-bottom: -2px; /* Alinha a borda com a borda do container */
+}
+
+.profile-tab-button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.profile-tab-button.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+  font-weight: 700;
+}
+
+/* Conteúdo da aba */
+.profile-tab-content {
+  padding-top: 1rem;
+}
+
+.profile-tab-pane h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+/* Estilos específicos das abas */
+.profile-user-info p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.profile-logout-button {
+  margin-top: 1.5rem;
+  background-color: #dc3545;
+}
+
+.profile-vote-area {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.profile-vote-points {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.profile-vote-points span {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.profile-vote-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-vote-option button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile-vote-option button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.profile-donation-options {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.profile-donation-button {
+  background-color: #28a745;
+}
+
+/* Mensagens de erro e sucesso (reaproveitadas) */
+.profile-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.profile-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+/* --- ESTILOS ADICIONAIS PARA A ABA DE DOAÇÃO --- */
+
+/* Caixa de Total Arrecadado */
+.profile-donation-total {
+  background-color: #eaf5ff;
+  border: 2px solid #bde0ff;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.profile-donation-total span {
+  display: block;
+  font-size: 1rem;
+  color: #005a9e;
+  margin-bottom: 0.5rem;
+}
+
+.profile-donation-total strong {
+  display: block;
+  font-size: 2rem;
+  color: #004275;
+  font-weight: 700;
+}
+
+/* Botões de Ação de Doação */
+.profile-donation-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.profile-donation-button {
+  background-color: #28a745;
+  font-size: 1.1rem;
+  padding: 12px 20px;
+}
+
+/* Título da Grade de Doações */
+.profile-donations-grid-title {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+  font-size: 1.4rem;
+}
+
+/* Tabela de Doações */
+.profile-donations-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove espaço entre as bordas */
+  font-size: 1rem;
+}
+
+.profile-donations-table th,
+.profile-donations-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-donations-table thead th {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Efeito de hover nas linhas */
+.profile-donations-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
