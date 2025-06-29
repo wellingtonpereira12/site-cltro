@@ -5,6 +5,7 @@ import CreateAccount from './pages/CreateAccount';
 import Download from './pages/Download';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import BannerPage from './pages/banner'; 
 
 // Componente NavMenu separado para evitar problemas de contexto
 function NavMenu() {
@@ -57,6 +58,7 @@ function AppContent() {
         <Route path="/download" element={<Download />} />
         <Route path="/login" element={<Login />} />
         <Route path="/perfil" element={<Profile />} />
+        <Route path="/banner" element={<BannerPage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
