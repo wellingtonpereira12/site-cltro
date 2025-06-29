@@ -4,6 +4,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [pagamento, setPagamento] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,10 +21,12 @@ export const AuthProvider = ({ children }) => {
       const response = await fetch(`https://www.cltro.com/api/auth/me`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      
+
       if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
+        const data = await response.json();
+        console.log(data.pagamentos)
+        setUser(data.user);
+        setPagamento(data.pagamentos);      
       } else {
         logout();
       }
@@ -53,7 +56,7 @@ export const AuthProvider = ({ children }) => {
     const data = await response.json();
     localStorage.setItem('token', data.token);
     setUser(data.user);
-
+    setPagamento(data.pagamentos);  
     return data;
   };
 
@@ -74,6 +77,7 @@ export const AuthProvider = ({ children }) => {
     const data = await response.json();
     localStorage.setItem('token', data.token);
     setUser(data.user);
+    setPagamento(data.pagamentos);
     return data;
   };
 
@@ -121,7 +125,7 @@ export const AuthProvider = ({ children }) => {
 
   const gerarLinkPagamentoMP = async (btnPagamento) => {
     try {
-      const response = await fetch('http://localhost:4000/api/auth/pagamento-direto', {
+      const response = await fetch('https://www.cltro.com/api/auth/pagamento-direto', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -157,6 +161,7 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     user,
+    pagamento,
     loading,
     login,
     register,

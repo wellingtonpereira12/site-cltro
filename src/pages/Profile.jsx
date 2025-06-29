@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Profile() {
   // Estados e hooks permanecem os mesmos
-  const { user, logout, computaVoto, gerarLinkPagamentoMP } = useAuth();
+  const { user, pagamento, logout, computaVoto, gerarLinkPagamentoMP } = useAuth();
   const [error, setError] = useState(null);
   const [errorDoacao, setErrorDoacao] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -32,7 +32,7 @@ export default function Profile() {
 
   // --- CÁLCULO DO TOTAL DE DOAÇÕES ---
   const totalDonated = 0 + ' ₵';
-  
+
   // Efeitos e Handlers (sem alterações)
   useEffect(() => {
     if (timeLeft > 0) {
@@ -95,7 +95,6 @@ export default function Profile() {
     }
   };
 
-
   const handlePagamento = async (btnPagamento) => {
     try {
       // Resetando estados iniciais
@@ -109,7 +108,7 @@ export default function Profile() {
         setTimeout(() => setSuccessDoacao(false), 60000);
         setTimeLeftDoacao(60);
       } else {
-        setErrorDoacao('não foi possivel');
+        setErrorDoacao('Não foi possivel gerar o link de doação');
       }
     } catch (err) {
       console.error('Erro ao gerar link de pagamento:', err);
@@ -238,12 +237,12 @@ export default function Profile() {
                       </tr>
                     </thead>
                     <tbody>
-                      {mockDonations.map((donation) => (
+                     {pagamento?.map((donation) => (
                         <tr key={donation.id}>
                           <td>{donation.id}</td>
-                          <td>{donation.date}</td>
+                          <td>{new Date(donation.data).toLocaleString('pt-BR')}</td>
                           <td>{donation.status}</td>
-                          <td>{donation.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                          <td>{Number(donation.valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                         </tr>
                       ))}
                     </tbody>
