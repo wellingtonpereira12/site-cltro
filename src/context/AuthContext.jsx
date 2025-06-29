@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }) => {
   };
 
 
-const computaVoto = async (btnvoto) => {
+  const computaVoto = async (btnvoto) => {
     try {
       const response = await fetch('https://www.cltro.com/api/auth/computaVoto', {
         method: 'POST',
@@ -119,13 +119,50 @@ const computaVoto = async (btnvoto) => {
     }
   };
 
+  const gerarLinkPagamentoMP = async (btnPagamento) => {
+    try {
+      const response = await fetch('http://localhost:4000/api/auth/pagamento-direto', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ btnPagamento })
+      });
+
+      // Verifica se a resposta tem conteúdo antes de parsear JSON
+      const responseText = await response.text();
+      const data = responseText ? JSON.parse(responseText) : {};
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao gerar o link de pagamento');
+      }
+
+      // Atualiza token se existir
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+      
+      // Atualiza dados do usuário
+      if (data.user) {
+        setUser(data.user);
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Erro ao computar voto:', error);
+      throw error;
+    }
+  };
+
   const value = {
     user,
     loading,
     login,
     register,
     logout,
-    computaVoto
+    computaVoto,
+    gerarLinkPagamentoMP
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

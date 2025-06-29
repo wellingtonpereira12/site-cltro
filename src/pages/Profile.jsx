@@ -3,12 +3,17 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Profile() {
   // Estados e hooks permanecem os mesmos
-  const { user, logout, computaVoto } = useAuth();
+  const { user, logout, computaVoto, gerarLinkPagamentoMP } = useAuth();
   const [error, setError] = useState(null);
+  const [errorDoacao, setErrorDoacao] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [successDoacao, setSuccessDoacao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDoacao, setIsLoadingDoacao] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [timeLeftDoacao, setTimeLeftDoacao] = useState(0);
   const [isProcessingPoints, setIsProcessingPoints] = useState(false);
+  const [isProcessingCash, setIsProcessingCash] = useState(false);
   const timerRef = useRef(null);
   const [activeTab, setActiveTab] = useState('perfil');
 
@@ -48,6 +53,30 @@ export default function Profile() {
       console.error('Erro ao computar voto:', err);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handlePagamento = async (btnPagamento) => {
+    try {
+      // Resetando estados iniciais
+      setErrorDoacao(null); setSuccessDoacao(false); setIsLoadingDoacao(true); setIsProcessingCash(true);
+
+      // Gerando link e abrindo em nova aba
+      const linkPagamento = await gerarLinkPagamentoMP(btnPagamento);
+      if (linkPagamento.resposta.success == true) {
+        window.open(linkPagamento.resposta.init_point, '_blank');
+        setSuccessDoacao(true);
+        setTimeout(() => setSuccessDoacao(false), 60000);
+        setTimeLeftDoacao(60);
+      } else {
+        setErrorDoacao('não foi possivel');
+      }
+    } catch (err) {
+      console.error('Erro ao gerar link de pagamento:', err);
+      setErrorDoacao(err.message);
+    } finally {
+      setIsLoadingDoacao(false);
+      setIsProcessingCash(false);
     }
   };
 
@@ -108,6 +137,8 @@ export default function Profile() {
             {activeTab === 'doacao' && (
               <div className="profile-tab-pane">
                 <h3>Apoie o Servidor</h3>
+                {errorDoacao && <div className="profile-error">{errorDoacao}</div>}
+                {successDoacao && <div className="profile-success">Obrigado pelo seu donate! Estamos processando seus total cash.</div>}
                 {/* Campo de Total Arrecadado */}
                 <div className="profile-donation-total">
                   <span>Total Cash</span>
@@ -115,26 +146,41 @@ export default function Profile() {
                     {totalDonated.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                   </strong>
                 </div>
-
                 <p>
                   Contribua e receba cash em troca! Sua doação ajuda a manter o servidor online e cheio de novidades.
                 </p>
-
                 <p>
                   <strong>R$10</strong> = 10.000 cash &nbsp;&nbsp;|&nbsp;&nbsp;
                   <strong>R$25</strong> = 30.000 cash &nbsp;&nbsp;|&nbsp;&nbsp;
                   <strong>R$50</strong> = 70.000 cash &nbsp;&nbsp;|&nbsp;&nbsp;
                   <strong>R$100</strong> = 150.000 cash
                 </p>
-
                 <div className="profile-donation-actions">
-                  <button className="profile-button profile-donation-button">Doar R$10</button>
-                  <button className="profile-button profile-donation-button">Doar R$25</button>
-                  <button className="profile-button profile-donation-button">Doar R$50</button>
-                  <button className="profile-button profile-donation-button">Doar R$100</button>
+                  <button
+                    className="profile-button profile-donation-button"
+                    onClick={() => handlePagamento(1)}
+                  >
+                    Doar R$10
+                  </button>
+                  <button
+                    className="profile-button profile-donation-button"
+                    onClick={() => handlePagamento(2)}
+                  >
+                    Doar R$25
+                  </button>
+                  <button
+                    className="profile-button profile-donation-button"
+                    onClick={() => handlePagamento(3)}
+                  >
+                    Doar R$50
+                  </button>
+                  <button
+                    className="profile-button profile-donation-button"
+                    onClick={() => handlePagamento(4)}
+                  >
+                    Doar R$100
+                  </button>
                 </div>
-
-
                 {/* Grid de Últimas Doações */}
                 <h4 className="profile-donations-grid-title">Últimas Doações</h4>
                 <div className="profile-donations-grid">
