@@ -9,12 +9,15 @@ export default function Profile() {
   const [success, setSuccess] = useState(false);
   const [successDoacao, setSuccessDoacao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingbtn2, setIsLoadingbtn2] = useState(false);
   const [isLoadingDoacao, setIsLoadingDoacao] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [timeLeftbtn2, setTimeLeftbtn2] = useState(0);
   const [timeLeftDoacao, setTimeLeftDoacao] = useState(0);
   const [isProcessingPoints, setIsProcessingPoints] = useState(false);
   const [isProcessingCash, setIsProcessingCash] = useState(false);
   const timerRef = useRef(null);
+  const timerRefBtn2 = useRef(null);
   const [activeTab, setActiveTab] = useState('perfil');
 
   // --- DADOS DE EXEMPLO (MOCK) PARA AS DOAÇÕES ---
@@ -29,7 +32,7 @@ export default function Profile() {
 
   // --- CÁLCULO DO TOTAL DE DOAÇÕES ---
   const totalDonated = 0 + ' ₵';
-
+  
   // Efeitos e Handlers (sem alterações)
   useEffect(() => {
     if (timeLeft > 0) {
@@ -40,21 +43,58 @@ export default function Profile() {
     return () => clearTimeout(timerRef.current);
   }, [timeLeft, isProcessingPoints]);
 
+  useEffect(() => {
+    if (timeLeftbtn2 > 0) {
+      timerRefBtn2.current = setTimeout(() => setTimeLeftbtn2(timeLeftbtn2 - 1), 1000);
+    }
+    return () => clearTimeout(timerRefBtn2.current);
+  }, [timeLeftbtn2]);
+
+  // Efeitos e Handlers (sem alterações)
   const handleVote = async (btnvotar) => {
-    try {
-      setError(null); setSuccess(false); setIsLoading(true); setIsProcessingPoints(true);
-      window.open('https://www.topragnarok.com.br/vote/23945', '_blank');
-      await computaVoto(btnvotar);
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 60000);
-      setTimeLeft(60);
-    } catch (err) {
-      setError(err.message); setIsProcessingPoints(false);
-      console.error('Erro ao computar voto:', err);
-    } finally {
-      setIsLoading(false);
+    if (btnvotar === 1) {
+      try {
+        setError(null);
+        setSuccess(false);
+        setIsLoading(true);
+        setIsProcessingPoints(true);
+
+        window.open('https://www.topragnarok.com.br/vote/23945', '_blank');
+        await computaVoto(btnvotar);
+
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 60000);
+        setTimeLeft(60); // ← CONTADOR PARA BOTÃO 1
+      } catch (err) {
+        setError(err.message);
+        setIsProcessingPoints(false);
+        console.error('Erro ao computar voto:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    } else if (btnvotar === 2) {
+      try {
+        setError(null);
+        setSuccess(false);
+        setIsLoadingbtn2(true);
+        setIsProcessingPoints(true);
+
+        window.open('http://www.topragnarok.org/votar/id8941/', '_blank');
+        await computaVoto(btnvotar);
+
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 60000);
+        setTimeLeftbtn2(60); // ← CONTADOR PARA BOTÃO 2
+      } catch (err) {
+        setError(err.message);
+        setIsProcessingPoints(false);
+        console.error('Erro ao computar voto:', err);
+      } finally {
+        setIsLoadingbtn2(false);
+      }
     }
   };
+
 
   const handlePagamento = async (btnPagamento) => {
     try {
@@ -127,6 +167,10 @@ export default function Profile() {
                      <strong>Top Ragnarok Brasil:</strong>
                      <button onClick={() => handleVote(1)} disabled={isLoading || timeLeft > 0}>
                        {timeLeft > 0 ? `Aguarde ${timeLeft}s` : 'Votar Agora'}
+                     </button>
+                     <strong>Top Ragnarok Org:</strong>
+                     <button onClick={() => handleVote(2)} disabled={isLoadingbtn2 || timeLeftbtn2 > 0}>
+                       {timeLeftbtn2 > 0 ? `Aguarde ${timeLeftbtn2}s` : 'Votar Agora'}
                      </button>
                    </div>
                  </div>
