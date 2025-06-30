@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Profile() {
   // Estados e hooks permanecem os mesmos
-  const { user, pagamento, logout, computaVoto, gerarLinkPagamentoMP } = useAuth();
+  const { user, pagamento, totalCash, totalPagamento, logout, computaVoto, gerarLinkPagamentoMP } = useAuth();
   const [error, setError] = useState(null);
   const [errorDoacao, setErrorDoacao] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -19,19 +19,6 @@ export default function Profile() {
   const timerRef = useRef(null);
   const timerRefBtn2 = useRef(null);
   const [activeTab, setActiveTab] = useState('perfil');
-
-  // --- DADOS DE EXEMPLO (MOCK) PARA AS DOAÇÕES ---
-  // Quando o back-end estiver pronto, você substituirá isso por uma chamada de API.
-  const mockDonations = [
-    //{ id: 1, status: 'Processando', amount: 50.00, date: '27/06/2025 10:30:23' },
-   // { id: 2, status: 'Pago', amount: 25.50, date: '27/06/2025 10:30:23' },
-   // { id: 3, status: 'Cancelado', amount: 100.00, date: '26/06/2025 10:30:23' },
-   // { id: 4, status: 'Pago', amount: 75.00, date: '25/06/2025 10:30:23' },
-   // { id: 5, status: 'Pago', amount: 15.00, date: '25/06/2025 10:30:23' },
-  ];
-
-  // --- CÁLCULO DO TOTAL DE DOAÇÕES ---
-  const totalDonated = 0 + ' ₵';
 
   // Efeitos e Handlers (sem alterações)
   useEffect(() => {
@@ -142,7 +129,7 @@ export default function Profile() {
                    <p><strong>Nome:</strong> {user.name}</p>
                    <p><strong>E-mail:</strong> {user.email}</p>
                    <p><strong>Pontos de Voto:</strong> {user.pontos}</p>
-                   <p><strong>Cash:</strong> {totalDonated} </p>
+                   <p><strong>Cash:</strong> {totalCash?.valor}</p>
                  </div>
                  <button onClick={logout} className="profile-button profile-logout-button">Sair</button>
               </div>
@@ -186,7 +173,7 @@ export default function Profile() {
                 <div className="profile-donation-total">
                   <span>Total Cash</span>
                   <strong>
-                    {totalDonated.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                    R$ {totalPagamento?.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                   </strong>
                 </div>
                 <p>
