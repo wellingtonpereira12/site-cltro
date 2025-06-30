@@ -3,21 +3,27 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Profile() {
   // Estados e hooks permanecem os mesmos
-  const { user, pagamento, totalCash, totalPagamento, logout, computaVoto, gerarLinkPagamentoMP } = useAuth();
+  const { user, pagamento, totalCash, totalPagamento, logout, computaVoto, gerarLinkPagamentoMP, processarCash } = useAuth();
   const [error, setError] = useState(null);
   const [errorDoacao, setErrorDoacao] = useState(null);
+  const [errorProcessarCash, setErrorProcessarCash] = useState(null);
   const [success, setSuccess] = useState(false);
   const [successDoacao, setSuccessDoacao] = useState(false);
+  const [successProcessarCash, setSuccessProcessarCash] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingbtn2, setIsLoadingbtn2] = useState(false);
   const [isLoadingDoacao, setIsLoadingDoacao] = useState(false);
+  const [isLoadingProcessarCash, setIsLoadingProcessarCash] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
   const [timeLeftbtn2, setTimeLeftbtn2] = useState(0);
+  const [timeLeftProcessarCash, setTimeLeftProcessarCash] = useState(0);
   const [timeLeftDoacao, setTimeLeftDoacao] = useState(0);
   const [isProcessingPoints, setIsProcessingPoints] = useState(false);
   const [isProcessingCash, setIsProcessingCash] = useState(false);
+  const [isProcessingProcessarCash, setIsProcessingProcessarCash] = useState(false);
   const timerRef = useRef(null);
   const timerRefBtn2 = useRef(null);
+  const timerRefProcessarCash = useRef(null);
   const [activeTab, setActiveTab] = useState('perfil');
 
   // Efeitos e Handlers (sem alterações)
@@ -36,6 +42,17 @@ export default function Profile() {
     }
     return () => clearTimeout(timerRefBtn2.current);
   }, [timeLeftbtn2]);
+
+  useEffect(() => {
+    if (timeLeftProcessarCash > 0) {
+      timerRefProcessarCash.current = setTimeout(() => {
+        setTimeLeftProcessarCash((prev) => prev - 1);
+      }, 1000);
+    }
+
+    return () => clearTimeout(timerRefProcessarCash.current);
+  }, [timeLeftProcessarCash]);
+
 
   // Efeitos e Handlers (sem alterações)
   const handleVote = async (btnvotar) => {
@@ -84,10 +101,8 @@ export default function Profile() {
 
   const handlePagamento = async (btnPagamento) => {
     try {
-      // Resetando estados iniciais
       setErrorDoacao(null); setSuccessDoacao(false); setIsLoadingDoacao(true); setIsProcessingCash(true);
 
-      // Gerando link e abrindo em nova aba
       const linkPagamento = await gerarLinkPagamentoMP(btnPagamento);
       if (linkPagamento.resposta.success == true) {
         window.open(linkPagamento.resposta.init_point, '_blank');
@@ -103,6 +118,29 @@ export default function Profile() {
     } finally {
       setIsLoadingDoacao(false);
       setIsProcessingCash(false);
+    }
+  };
+
+  const handleProcessarCash = async () => {
+    try {
+      setErrorProcessarCash(null);
+      setIsLoadingProcessarCash(true);
+      setIsProcessingProcessarCash(true);
+
+      const processar = await processarCash();
+      if (processar.success === true) {
+        setSuccessProcessarCash(true);
+        setTimeout(() => setSuccessProcessarCash(false), 60000);
+        setTimeLeftProcessarCash(20);
+      } else {
+        setErrorDoacao('Não foi possível processar o Cash');
+      }
+    } catch (err) {
+      console.error('Erro ao processar o Cash:', err);
+      setErrorDoacao(err.message);
+    } finally {
+      setIsLoadingProcessarCash(false);
+      setIsProcessingProcessarCash(false);
     }
   };
 
@@ -171,9 +209,23 @@ export default function Profile() {
                 {successDoacao && <div className="profile-success">Obrigado pelo seu donate! Estamos processando seus total cash.</div>}
                 {/* Campo de Total Arrecadado */}
                 <div className="profile-donation-total">
-                  <span>Total Cash</span>
+                  <span>Total de doação para troca</span>
                   <strong>
-                    R$ {totalPagamento?.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                    {isLoadingProcessarCash || timeLeftProcessarCash > 0
+                      ? 'Processando...'
+                      : `R$ ${totalPagamento?.valor.toLocaleString('pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL',
+                        })}`}
+                  </strong>
+                  {totalPagamento?.valor > 0 && (
+                    <button onClick={() => handleProcessarCash()} disabled={successProcessarCash === true && timeLeftProcessarCash > 0}>
+                      {isLoadingProcessarCash || timeLeftProcessarCash > 0 ? `Processando ${timeLeftProcessarCash}s` : 'Processar cash'}
+                    </button>
+                  )}
+                  <span>Total Cash na sua conta</span>
+                  <strong>
+                    {isLoadingProcessarCash || timeLeftProcessarCash> 0? 'Processando...' : totalCash?.valor}
                   </strong>
                 </div>
                 <p>

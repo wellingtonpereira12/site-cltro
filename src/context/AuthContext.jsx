@@ -167,6 +167,44 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+    const processarCash = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/auth/processarCash', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      // Verifica se a resposta tem conteúdo antes de parsear JSON
+      const responseText = await response.text();
+      const data = responseText ? JSON.parse(responseText) : {};
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao processar o cash');
+      }
+
+      // Atualiza token se existir
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+      
+      // Atualiza dados do usuário
+      if (data.user) {
+        setUser(data.user);
+      }
+      
+      setPagamento(data.pagamentos);
+      settotalCash(data.totalCash);   
+      settotalPagamento(data.totalPagamentos);  
+      return data;
+    } catch (error) {
+      console.error('Erro ao computar voto:', error);
+      throw error;
+    }
+  };
+
   const value = {
     user,
     pagamento,
@@ -177,7 +215,8 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     computaVoto,
-    gerarLinkPagamentoMP
+    gerarLinkPagamentoMP,
+    processarCash
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
