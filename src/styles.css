@@ -63,6 +63,7 @@ h2 {
 }
 
 button,
+.buttonAccount,
 a.button {
   background-color: #3182ce; /* azul */
   color: white;

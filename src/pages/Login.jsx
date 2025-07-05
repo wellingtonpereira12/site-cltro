@@ -47,7 +47,7 @@ export default function Login() {
             autoComplete="current-password"
           />
         </div>
-        <button type="submit" className="button">Entrar</button>
+        <button type="submit" className="buttonAccount">Entrar</button>
       </form>
       <p>
         Ainda não tem uma conta? <a href="/criar-conta">Crie uma aqui</a>.

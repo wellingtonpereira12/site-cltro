@@ -77,7 +77,7 @@ export default function CreateAccount() {
             autoComplete="new-password"
           />
         </div>
-        <button type="submit" className="button">Criar Conta</button>
+        <button type="submit" className="buttonAccount">Criar Conta</button>
       </form>
       <p>
         Já tem uma conta? <a href="/login">Faça login aqui</a>.
