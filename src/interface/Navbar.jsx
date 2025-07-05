@@ -6,7 +6,7 @@ export default function Navbar() {
   const { user, logout } = useAuth();
 
   return (
-    <nav className="nav-menu">
+    <nav className="nav-menu text-[10px] min-[425px]:text-[12px] min-[500px]:text-[14px] min-[640px]:text-[16px] flex gap-2 text-center">
       <Link to="/">Home</Link>
       <Link to="/criar-conta">Crie sua conta</Link>
       <Link to="/download">Download</Link>
@@ -34,7 +34,6 @@ export default function Navbar() {
       >
         Wiki
       </a>
-      <span className="bg-red-500">Teste</span>
     </nav>
   );
 }
