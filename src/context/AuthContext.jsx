@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/auth/me`, {
+      const response = await fetch(`https://www.cltro.com/api/auth/me`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (login, password) => {
     console.log(login, password)
-    const response = await fetch(`http://localhost:4000/api/auth/login`, {
+    const response = await fetch(`https://www.cltro.com/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (userData) => {
-    const response = await fetch(`http://localhost:4000/api/auth/register`, {
+    const response = await fetch(`https://www.cltro.com/api/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }) => {
 
   const computaVoto = async (btnvoto) => {
     try {
-      const response = await fetch('http://localhost:4000/api/auth/computaVoto', {
+      const response = await fetch('https://www.cltro.com/api/auth/computaVoto', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ export const AuthProvider = ({ children }) => {
 
     const processarCash = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/auth/processarCash', {
+      const response = await fetch('https://www.cltro.com/api/auth/processarCash', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -206,7 +206,7 @@ export default function Profile() {
               <div className="profile-tab-pane">
                 <h3>Apoie o Servidor</h3>
                 {errorDoacao && <div className="profile-error">{errorDoacao}</div>}
-                {successDoacao && <div className="profile-success">Obrigado pelo seu donate! Estamos processando seus total cash.</div>}
+                {successDoacao && <div className="profile-success">Obrigado pelo seu donate! Quando o pagamento for aprovado você poderá transformar em cash.</div>}
                 {/* Campo de Total Arrecadado */}
                 <div className="profile-donation-total">
                   <span>Total de doação para troca</span>
