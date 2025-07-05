@@ -133,7 +133,7 @@ export const AuthProvider = ({ children }) => {
 
   const gerarLinkPagamentoMP = async (btnPagamento) => {
     try {
-      const response = await fetch('http://localhost:4000/api/auth/pagamento-direto', {
+      const response = await fetch('https://www.cltro.com/api/auth/pagamento-direto', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
