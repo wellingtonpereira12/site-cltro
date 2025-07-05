@@ -11,7 +11,7 @@ import Download from "./pages/Download";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import BannerPage from "./pages/banner";
-import NavMenu from "./NavMenu"; // Novo import
+import Navbar from "./interface/Navbar";
 
 function AppContent() {
   const { loading } = useAuth();
@@ -44,7 +44,7 @@ export default function App() {
   return (
     <AuthProvider>
       <Router>
-        <NavMenu />
+        <Navbar />
         <AppContent />
       </Router>
     </AuthProvider>
