@@ -4,7 +4,7 @@ export default function Download() {
       <h2>Download CLTRO no google Drive:</h2>
       <p>Clique no botão abaixo para baixar o arquivo do jogo completo:</p>
       <a
-        href="https://drive.google.com/drive/folders/1goChq1oT0HnQdu4BIsDr4rWDbrPpew83?usp=sharing"
+        href="https://drive.google.com/file/d/1cdQvEcmZd1hUzeJn1S_YB0uX0Xm8AErm/view?usp=sharing"
         target="_blank"
         rel="noopener noreferrer"
         className="button"
@@ -13,7 +13,7 @@ export default function Download() {
       </a>
       <p>Clique no botão abaixo para baixar launcher:</p>
       <a
-        href="https://drive.google.com/drive/folders/1YhrenoGTC83nHEDCf1ZbfFHJbht4u_7y?usp=sharing"
+        href="https://drive.google.com/file/d/1wywtlCqUVI0OcmKgBPjEQMS-IJIbkwaF/view?usp=sharing"
         target="_blank"
         rel="noopener noreferrer"
         className="button"
