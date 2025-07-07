@@ -213,16 +213,16 @@ export default function Profile() {
                   <strong>
                     {isLoadingProcessarCash || timeLeftProcessarCash > 0
                       ? 'Processando...'
-                      : `R$ ${totalPagamento?.valor.toLocaleString('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                        })}`}
+                      : (typeof totalPagamento?.valor === 'number'
+                          ? totalPagamento.valor.toLocaleString('pt-BR', {
+                              style: 'currency',
+                              currency: 'BRL',
+                            })
+                          : 'R$ 0,00')}
                   </strong>
-                  {totalPagamento?.valor > 0 && (
-                    <button onClick={() => handleProcessarCash()} disabled={successProcessarCash === true && timeLeftProcessarCash > 0}>
-                      {isLoadingProcessarCash || timeLeftProcessarCash > 0 ? `Processando ${timeLeftProcessarCash}s` : 'Processar cash'}
-                    </button>
-                  )}
+                  <button onClick={() => handleProcessarCash()} disabled={totalPagamento.valor == 0}>
+                    {isLoadingProcessarCash || timeLeftProcessarCash > 0 ? `Processando ${timeLeftProcessarCash}s` : 'Processar cash'}
+                  </button>
                   <span>Total Cash na sua conta</span>
                   <strong>
                     {isLoadingProcessarCash || timeLeftProcessarCash> 0? 'Processando...' : totalCash?.valor}

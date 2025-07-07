@@ -20,20 +20,30 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch(`https://www.cltro.com/api/auth/me`, {
+      const response = await fetch(`http://localhost:4000/api/auth/me`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.pagamentos)
-        setUser(data.user);
-        setPagamento(data.pagamentos);      
-        settotalCash(data.totalCash);   
-        settotalPagamento(data.totalPagamentos); 
-      } else {
-        logout();
-      }
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.pagamentos);
+      const valorNumerico = Number(data.totalPagamentos?.valor ?? 0);
+      setUser(data.user);
+      setPagamento(data.pagamentos);
+      settotalCash(data.totalCash);
+
+      settotalPagamento({
+        ...data.totalPagamentos,
+        valor: valorNumerico,
+        valorFormatado: valorNumerico.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        })
+      });
+    } else {
+      logout();
+    }
+
     } catch (error) {
       console.error('Erro ao buscar usuário:', error);
       logout();
@@ -44,7 +54,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (login, password) => {
     console.log(login, password)
-    const response = await fetch(`https://www.cltro.com/api/auth/login`, {
+    const response = await fetch(`http://localhost:4000/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -67,7 +77,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (userData) => {
-    const response = await fetch(`https://www.cltro.com/api/auth/register`, {
+    const response = await fetch(`http://localhost:4000/api/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -83,7 +93,6 @@ export const AuthProvider = ({ children }) => {
     const data = await response.json();
     localStorage.setItem('token', data.token);
     setUser(data.user);
-    setPagamento(data.pagamentos);
     settotalCash(data.totalCash);   
     settotalPagamento(data.totalPagamentos);  
     return data;
@@ -169,7 +178,7 @@ export const AuthProvider = ({ children }) => {
 
     const processarCash = async () => {
     try {
-      const response = await fetch('https://www.cltro.com/api/auth/processarCash', {
+      const response = await fetch('http://localhost:4000/api/auth/processarCash', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
