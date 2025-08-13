@@ -4,7 +4,7 @@ export default function Download() {
       <h2>Download CLTRO no google Drive:</h2>
       <p>Clique no botão abaixo para baixar o arquivo do jogo completo:</p>
       <a
-        href="https://drive.google.com/file/d/126qqhptQi5U7XORiWU1sR6zLAM8UWVgi/view?usp=sharing"
+        href="https://drive.google.com/file/d/1Itn9gfyVKK58D3RyMrj3k_YdH8isRSbS/view?usp=sharing"
         target="_blank"
         rel="noopener noreferrer"
         className="button"
